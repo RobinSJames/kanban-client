@@ -11,11 +11,11 @@ export class Card extends Component {
         <CardHeader>
           <p><span>{title}</span>{description}</p>
         </CardHeader>
-        <CardFooter>
+        {/* <CardFooter>
           {tags.map((tag, index) => (
             <div key={index}>{tag}</div>
           ))}
-        </CardFooter>
+        </CardFooter> */}
       </CardHolder>
     )
   }

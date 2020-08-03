@@ -58,6 +58,9 @@ export const LabeledInput = styled.div`
 `
 
 export const Input = styled.input`
+  height: ${prop => prop.theme.height}
+  font-size: 1rem;
+  line-height: 0;
   padding: 0.5rem 0.75rem;
   border: 2px solid ${props => props.primary ? '#2a9df4' : '#eeeeee'};
   border-radius: 0.15rem;
@@ -110,7 +113,7 @@ export const CardHolder = styled.div`
 CardHolder.defaultProps = {
   theme: {
     priority: {
-      priority: '#eeeeee'
+      priority: '#ff0000'
     }
   }
 }
@@ -166,12 +169,12 @@ export const NavBarStyle = styled.div`
     margin-right: 4rem;
     & a {
       display:flex;
+      justify-content: center;
+      items-align: center;
       text-decoration: none;
       margin-right: 1rem;
       & p {
-        margin: 0;
         color: white;
-        text-align: center;
       }
     }
   }

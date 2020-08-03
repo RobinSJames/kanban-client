@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
 import Card from './Card'
 import { TaskListStyle, TaskListContainer, TaskListHeaderStyle } from '../styles'
 import { ThemeProvider } from 'styled-components';
+
+const TASK_QUERY = gql`
+  {
+    tasks {
+      id
+      title
+      status
+      description
+      priority
+      createdAt
+      updatedAt
+    }
+  }
+`
 
 export class TaskList extends Component {
   constructor(props){
@@ -96,7 +112,22 @@ export class TaskList extends Component {
   render() {
     return (
       <TaskListContainer>
-          {this.taskList.map((taskList, index) => (
+        <Query query={TASK_QUERY}>
+          {({loading, error, data}) => {
+            if (loading) return <div>Loading...</div>
+            if (error) return <div>Error</div>
+            const tasksToRender = data.tasks
+            return (
+              <div>
+                {tasksToRender.map(task =>
+                  <ThemeProvider theme={task.priority}>
+                    <Card task={task} key={task.id}></Card>
+                  </ThemeProvider>)}
+              </div>
+            )
+          }}
+        </Query>
+          {/* {this.taskList.map((taskList, index) => (
             <TaskListStyle key={index}>
             <TaskListHeaderStyle>
               <h4>{taskList.title}</h4>
@@ -111,7 +142,7 @@ export class TaskList extends Component {
               ))}
             </div>
           </TaskListStyle>
-          ))}
+          ))} */}
       </TaskListContainer>
     )
   }
